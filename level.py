@@ -5,6 +5,7 @@ from player import Player
 import debug
 from pytmx.util_pygame import load_pygame
 from weapon import Weapon
+from UI import UI
 
 
 class Level:
@@ -14,7 +15,11 @@ class Level:
         self.o_sprites = pygame.sprite.Group()
         self.tmx_data = load_pygame("graph/level/map.tmx")
 
+        # create map
         self.create_map()
+
+        # user interface
+        self.ui = UI()
 
         # attack sprites
         self.current_attack = None
@@ -43,7 +48,8 @@ class Level:
     def run(self):
         self.v_sprites.custom_draw(self.player)
         self.v_sprites.update()
-        debug.debug(self.player.status)
+        self.ui.display(self.player)
+        debug.debug(self.player.speed)
 
 
 class YSortCameraGroup(pygame.sprite.Group):

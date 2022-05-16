@@ -1,5 +1,5 @@
 import pygame
-from settings import TILESIZE, WIDTH, HEIGTH, FPS, weapon_data
+from settings import weapon_data
 from support import import_folder
 
 
@@ -12,12 +12,12 @@ class Player(pygame.sprite.Sprite):
 
         # movement
         self.direction = pygame.math.Vector2()
-        self.speed = 5
         self.attacking = False
         self.range_attacking = False
         self.cooldown = 400
         self.attack_time = 0
         self.o_sprites = o_sprites
+        self.superspeed = 20
 
         # animation
         self.import_player_assets()
@@ -33,6 +33,12 @@ class Player(pygame.sprite.Sprite):
         self.can_switch_weapon = True
         self.weapon_switch_time = None
         self.switch_duration_cooldown = 200
+
+        self.stats = {'health': 100, 'stamina': 60, 'attack': 10, 'magic': 4, 'speed': 5}
+        self.health = self.stats['health'] * 0.5
+        self.stamina = self.stats['stamina']
+        self.speed = self.stats['speed']
+        self.exp = 10
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -80,6 +86,11 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.weapon_index = 0
             self.weapon = list(weapon_data.keys())[self.weapon_index]
+
+        if keys[pygame.K_r] and keys[pygame.K_u]:
+            self.speed = self.superspeed
+        if keys[pygame.K_LALT]:
+            self.speed = self.stats['speed']
 
     def import_player_assets(self):
         caracter_path = "graph/player/"
