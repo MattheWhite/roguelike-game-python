@@ -30,11 +30,11 @@ class Level:
                 for x, y, surf in layer.tiles():
                     pos = (x*TILESIZE, y*TILESIZE)
                     Tile(pos, [self.o_sprites], "invisible", surf)
-        
+
         for obj in self.tmx_data.objects:
             pos = obj.x, obj.y
             Tile(pos, [self.v_sprites, self.o_sprites], "object", obj.image)
-        
+
         for layer in self.tmx_data.layers:
             if layer.name in ("Entities"):
                 for x, y, ID in layer.tiles():
