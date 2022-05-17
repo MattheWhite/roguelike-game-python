@@ -25,17 +25,22 @@ class Level:
         self.current_attack = None
 
     def create_map(self):
-
         for layer in self.tmx_data.layers:
             if layer.name in ("blocks"):
                 for x, y, surf in layer.tiles():
                     pos = (x*TILESIZE, y*TILESIZE)
                     Tile(pos, [self.o_sprites], "invisible", surf)
+        
         for obj in self.tmx_data.objects:
             pos = obj.x, obj.y
             Tile(pos, [self.v_sprites, self.o_sprites], "object", obj.image)
-
-        self.player = Player((2000, 1100), [self.v_sprites], self.o_sprites, self.create_attack, self.destroy_attack)
+        
+        for layer in self.tmx_data.layers:
+            if layer.name in ("Entities"):
+                for x, y, ID in layer.tiles():
+                    pos = (x*TILESIZE, y*TILESIZE)
+                    if ID == 394:
+                        self.player = Player((1000, 600), [self.v_sprites], self.o_sprites, self.create_attack, self.destroy_attack)
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, self.v_sprites)
