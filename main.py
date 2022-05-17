@@ -1,43 +1,32 @@
-import util
-import engine
-import ui
-
-PLAYER_ICON = '@'
-PLAYER_START_X = 3
-PLAYER_START_Y = 3
-
-BOARD_WIDTH = 30
-BOARD_HEIGHT = 20
+import pygame
+import sys
+from settings import WIDTH, HEIGTH, FPS
+from level import Level
 
 
-def create_player():
-    '''
-    Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
-    Fell free to extend this dictionary!
+class Game:
+    def __init__(self) -> None:
 
-    Returns:
-    dictionary
-    '''
-    pass
+        pygame.init()
+        self.screen = pygame.display.set_mode((WIDTH, HEIGTH))
+        pygame.display.set_caption("test game2")
+        self.clock = pygame.time.Clock()
+        self.level = Level()
 
-
-def main():
-    player = create_player()
-    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-
-    util.clear_screen()
-    is_running = True
-    while is_running:
-        engine.put_player_on_board(board, player)
-        ui.display_board(board)
-
-        key = util.key_pressed()
-        if key == 'q':
-            is_running = False
-        else:
-            pass
-        util.clear_screen()
+    def run(self):
+        game_is_active = True
+        while game_is_active:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            self.screen.fill("black")
+            self.level.run()
+            pygame.display.update()
+            self.clock.tick(FPS)
 
 
 if __name__ == '__main__':
-    main()
+    game = Game()
+    game.run()
+
