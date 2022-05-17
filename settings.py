@@ -4,6 +4,12 @@ HEIGTH = 800
 FPS = 60
 TILESIZE = 64
 
+
+# bar size
+BAR_HEIGHT = 30
+HEALTH_BAR_WIDTH = 200
+ITEM_BOX_SIZE = 80
+
 # font
 UI_FONT = 'graph/font/game_font.ttf'
 UI_FONT_SIZE = 18

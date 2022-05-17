@@ -10,13 +10,22 @@ class UI:
         self.exp_font = pygame.font.Font(Set.UI_FONT, Set.UI_FONT_SIZE)
         self.stats_font = pygame.font.Font(Set.UI_FONT, Set.UI_HEALTH_FONT_SIZE)
 
-    def show_stats(self, text, current, max, rect_pos, text_color):
-        text_surf = self.stats_font.render(f"{text}  :  {max} / {int(current)}", False, text_color)
-        text_rect = text_surf.get_rect(topleft=rect_pos)
+        # bar setup 
+        self.health_bar_rect = pygame.Rect(10, 35, Set.HEALTH_BAR_WIDTH, Set.BAR_HEIGHT)
 
-        pygame.draw.rect(self.display_surface, Set.UI_BG_COLOR, text_rect.inflate(15, 15))
-        self.display_surface.blit(text_surf, text_rect)
-        pygame.draw.rect(self.display_surface, Set.UI_BORDER_COLOR, text_rect.inflate(15, 15), 3)
+    def show_bar(self, current, max_amount, bg_rect, color):
+        # draw bg
+        pygame.draw.rect(self.display_surface, Set.UI_BG_COLOR, bg_rect)
+
+        # converting stat to pixel
+        ratio = current / max_amount
+        current_width = bg_rect.width * ratio
+        current_rect = bg_rect.copy()
+        current_rect.width = current_width
+
+        # drawing the bar
+        pygame.draw.rect(self.display_surface, color, current_rect)
+        pygame.draw.rect(self.display_surface, Set.UI_BORDER_COLOR, bg_rect, 5)
 
     def show_exp(self, exp):
         text_surf = self.exp_font.render(f'exp : {int(exp)}', False, Set.TEXT_COLOR)
@@ -29,5 +38,5 @@ class UI:
         pygame.draw.rect(self.display_surface, Set.UI_BORDER_COLOR, text_rect.inflate(15, 15), 3)
 
     def display(self, player):
-        self.show_stats('Health', player.health, player.stats['health'], (20, 35), Set.HEALTH_TEXT_COLOR)
+        self.show_bar(player.health, player.stats['health'], self.health_bar_rect, Set.HEALTH_TEXT_COLOR)
         self.show_exp(player.exp)

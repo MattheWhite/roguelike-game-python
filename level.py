@@ -49,7 +49,7 @@ class Level:
         self.v_sprites.custom_draw(self.player)
         self.v_sprites.update()
         self.ui.display(self.player)
-        debug.debug(self.player.speed)
+        debug.debug(f" movement speed: {self.player.speed}")
 
 
 class YSortCameraGroup(pygame.sprite.Group):
