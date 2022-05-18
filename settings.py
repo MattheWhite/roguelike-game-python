@@ -17,9 +17,10 @@ UI_HEALTH_FONT_SIZE = 25
 
 # general colors
 UI_BG_COLOR = '#222222'
-UI_BORDER_COLOR = 'white'
+UI_BORDER_COLOR = '#8E8E8E'
 TEXT_COLOR = '#EEEEEE'
 HEALTH_TEXT_COLOR = 'red'
+UI_BORDER_COLOR_ACTIVE = 'gold'
 
 # weapons
 weapon_data = {

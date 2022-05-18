@@ -1,5 +1,5 @@
 import pygame
-import settings as Set
+import settings as set
 
 
 class UI:
@@ -7,15 +7,22 @@ class UI:
 
         # general
         self.display_surface = pygame.display.get_surface()
-        self.exp_font = pygame.font.Font(Set.UI_FONT, Set.UI_FONT_SIZE)
-        self.stats_font = pygame.font.Font(Set.UI_FONT, Set.UI_HEALTH_FONT_SIZE)
+        self.exp_font = pygame.font.Font(set.UI_FONT, set.UI_FONT_SIZE)
+        self.stats_font = pygame.font.Font(set.UI_FONT, set.UI_HEALTH_FONT_SIZE)
 
         # bar setup
-        self.health_bar_rect = pygame.Rect(10, 35, Set.HEALTH_BAR_WIDTH, Set.BAR_HEIGHT)
+        self.health_bar_rect = pygame.Rect(10, 35, set.HEALTH_BAR_WIDTH, set.BAR_HEIGHT)
+
+        # convert weapon dictionary
+        self.weapon_graphics = []
+        for weapon in set.weapon_data.values():
+            path = weapon['graphic']
+            weapon = pygame.image.load(path).convert_alpha()
+            self.weapon_graphics.append(weapon)
 
     def show_bar(self, current, max_amount, bg_rect, color):
         # draw bg
-        pygame.draw.rect(self.display_surface, Set.UI_BG_COLOR, bg_rect)
+        pygame.draw.rect(self.display_surface, set.UI_BG_COLOR, bg_rect)
 
         # converting stat to pixel
         ratio = current / max_amount
@@ -25,18 +32,35 @@ class UI:
 
         # drawing the bar
         pygame.draw.rect(self.display_surface, color, current_rect)
-        pygame.draw.rect(self.display_surface, Set.UI_BORDER_COLOR, bg_rect, 5)
+        pygame.draw.rect(self.display_surface, set.UI_BORDER_COLOR, bg_rect, 5)
 
     def show_exp(self, exp):
-        text_surf = self.exp_font.render(f'exp : {int(exp)}', False, Set.TEXT_COLOR)
+        text_surf = self.exp_font.render(f'exp : {int(exp)}', False, set.TEXT_COLOR)
         x = self.display_surface.get_size()[0] - 20
         y = self.display_surface.get_size()[1] - 20
         text_rect = text_surf.get_rect(bottomright=(x, y))
 
-        pygame.draw.rect(self.display_surface, Set.UI_BG_COLOR, text_rect.inflate(15, 15))
+        pygame.draw.rect(self.display_surface, set.UI_BG_COLOR, text_rect.inflate(15, 15))
         self.display_surface.blit(text_surf, text_rect)
-        pygame.draw.rect(self.display_surface, Set.UI_BORDER_COLOR, text_rect.inflate(15, 15), 3)
+        pygame.draw.rect(self.display_surface, set.UI_BORDER_COLOR, text_rect.inflate(15, 15), 3)
+
+    def selection_box(self, left, top, has_switched):
+        bg_rect = pygame.Rect(left, top, set.ITEM_BOX_SIZE, set.ITEM_BOX_SIZE)
+        pygame.draw.rect(self.display_surface, set.UI_BG_COLOR, bg_rect)
+        if has_switched:
+            pygame.draw.rect(self.display_surface, set.UI_BORDER_COLOR_ACTIVE, bg_rect, 5)
+        else:
+            pygame.draw.rect(self.display_surface, set.UI_BORDER_COLOR, bg_rect, 5)
+        return bg_rect
+
+    def weapon_overlay(self, weapon_index, has_switched):
+        bg_rect = self.selection_box(10, 700, has_switched)
+        weapon_surf = self.weapon_graphics[weapon_index]
+        weapon_rect = weapon_surf.get_rect(center=bg_rect.center)
+
+        self.display_surface.blit(weapon_surf, weapon_rect)
 
     def display(self, player):
-        self.show_bar(player.health, player.stats['health'], self.health_bar_rect, Set.HEALTH_TEXT_COLOR)
+        self.show_bar(player.health, player.stats['health'], self.health_bar_rect, set.HEALTH_TEXT_COLOR)
         self.show_exp(player.exp)
+        self.weapon_overlay(player.weapon_index, not player.can_switch_weapon)
