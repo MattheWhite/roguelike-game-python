@@ -39,6 +39,11 @@ class Player(Entity):
         self.speed = self.stats['speed']
         self.exp = 10
 
+        # damage timer
+        self.vulnerable = False
+        self.hurt_time = 0
+        self.invulnerability_duartion = 500
+
     def input(self):
         keys = pygame.key.get_pressed()
         m_buttons = pygame.mouse.get_pressed()
@@ -132,6 +137,10 @@ class Player(Entity):
             if current_time - self.weapon_switch_time >= self.switch_duration_cooldown:
                 self.can_switch_weapon = True
 
+        if not self.vulnerable:
+            if current_time - self.hurt_time >= self.invulnerability_duartion:
+                self.vulnerable = True
+
     def animate(self):
         animation = self.animations[self.status]
 
@@ -145,7 +154,7 @@ class Player(Entity):
         self.rect = self.image.get_rect(center=self.hitbox.center)
 
         # flicker
-        
+
 
     def get_full_weapon_damage(self):
         base_damage = self.stats["attack"]
