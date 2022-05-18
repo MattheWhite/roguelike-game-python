@@ -1,7 +1,7 @@
 import pygame
 import sys
 from settings import WIDTH, HEIGTH, FPS
-from level import Level
+from menu import Menu
 
 
 class Game:
@@ -9,9 +9,9 @@ class Game:
 
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGTH))
-        pygame.display.set_caption("test game2")
+        pygame.display.set_caption("RogueLike by theboys")
         self.clock = pygame.time.Clock()
-        self.level = Level()
+        self.menu = Menu()
 
     def run(self):
         game_is_active = True
@@ -21,7 +21,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
             self.screen.fill("black")
-            self.level.run()
+            self.menu.run()
             pygame.display.update()
             self.clock.tick(FPS)
 

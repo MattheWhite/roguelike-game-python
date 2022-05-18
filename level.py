@@ -25,16 +25,14 @@ class Level:
         # attack sprites
         self.current_attack = None
         self.attack_sprites = pygame.sprite.Group()
-        self.attackable_sprites = pygame.sprite.Group() 
-        
+        self.attackable_sprites = pygame.sprite.Group()
+
         # get enemys
         self.get_enemys('Boss')
         self.get_enemys('spirit')
         self.get_enemys('squid')
         self.get_enemys('bamboo')
 
-        
-        
     def create_map(self):
         for layer in self.tmx_data.layers:
             if layer.name in ("blocks"):
@@ -44,13 +42,13 @@ class Level:
 
         for obj in self.tmx_data.objects:
             pos = obj.x, obj.y
-            Tile(pos, [self.v_sprites, self.o_sprites,], "object", obj.image)
+            Tile(pos, [self.v_sprites, self.o_sprites], "object", obj.image)
 
         for layer in self.tmx_data.layers:
             if layer.name in ("Player"):
                 for x, y, surf in layer.tiles():
                     pos = (x*TILESIZE, y*TILESIZE)
-                    self.player = Player(pos, [self.v_sprites], self.o_sprites, self.create_attack, self.destroy_attack)
+                    self.player = Player(pos, [self.v_sprites], self.o_sprites, self.create_attack, self.destroy_attack, self.create_magic)
 
     def get_enemys(self, monster_name):
         for layer in self.tmx_data.layers:
@@ -62,6 +60,10 @@ class Level:
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.v_sprites, self.attack_sprites])
 
+    def create_magic(self, style, strength, cost):
+        print(style)
+        print(strength)
+        print(cost)
 
     def destroy_attack(self):
         if self.current_attack:
@@ -71,12 +73,12 @@ class Level:
     def player_attack_logic(self):
         if self.attack_sprites:
             for attack_sprite in self.attack_sprites:
-                collision_sprites = pygame.sprite.spritecollide(attack_sprite,self.attackable_sprites, False)    
+                collision_sprites = pygame.sprite.spritecollide(attack_sprite, self.attackable_sprites, False)    
                 if collision_sprites:
                     for target_sprite in collision_sprites:
                         target_sprite.get_damage(self.player, attack_sprite.sprite_type)       
                         # target_sprite.kill()
-    
+
     def damage_player(self, amount, attack_type):
         if self.player.vulnerable:
             self.player.health -= amount
