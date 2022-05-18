@@ -66,6 +66,7 @@ class Level:
     def run(self):
         self.v_sprites.custom_draw(self.player)
         self.v_sprites.update()
+        self.v_sprites.enemy_update(self.player)
         self.ui.display(self.player)
         debug.debug(f" movement speed: {self.player.speed}")
 
@@ -92,3 +93,8 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surf.blit(sprite.image, offset_pos)
+
+    def enemy_update(self, player):
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy']
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
