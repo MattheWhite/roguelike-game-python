@@ -10,7 +10,7 @@ class UI:
         self.exp_font = pygame.font.Font(Set.UI_FONT, Set.UI_FONT_SIZE)
         self.stats_font = pygame.font.Font(Set.UI_FONT, Set.UI_HEALTH_FONT_SIZE)
 
-        # bar setup 
+        # bar setup
         self.health_bar_rect = pygame.Rect(10, 35, Set.HEALTH_BAR_WIDTH, Set.BAR_HEIGHT)
 
     def show_bar(self, current, max_amount, bg_rect, color):
