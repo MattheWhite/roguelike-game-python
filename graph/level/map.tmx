@@ -3,10 +3,10 @@
  <editorsettings>
   <export target="../../../../test_game2/graph/level/map.tmx" format="tmx"/>
  </editorsettings>
- <tileset firstgid="1" source="../../../../../Documents/custom_map/tsx/Floor1.tsx"/>
- <tileset firstgid="551" source="../../../../../Documents/custom_map/tsx/floor2.tsx"/>
- <tileset firstgid="1123" source="../../../../../Documents/custom_map/tsx/TilesetFloorDetail64.tsx"/>
- <tileset firstgid="1203" source="../../../../../Documents/custom_map/tsx/objects.tsx"/>
+ <tileset firstgid="1" source="../../tsx/Floor1.tsx"/>
+ <tileset firstgid="551" source="../../tsx/floor2.tsx"/>
+ <tileset firstgid="1123" source="../../tsx/TilesetFloorDetail64.tsx"/>
+ <tileset firstgid="1203" source="../../tsx/objects.tsx"/>
  <layer id="1" name="Ground" width="150" height="150">
   <data encoding="csv">
 950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,950,167,167,1036,1036,273,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,

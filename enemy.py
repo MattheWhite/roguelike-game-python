@@ -1,5 +1,5 @@
 import pygame
-from settings import *
+import settings as set
 from entities import Entity
 from support import import_folder
 
@@ -17,6 +17,18 @@ class Enemy(Entity):
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -10)
         self.o_sprites = o_sprites
+
+        # stats
+        self.monster_name = monster_name
+        monster_info = set.monster_data[self.monster_name]
+        self.health = monster_info['health']
+        self.exp = monster_info['exp']
+        self.speed = monster_info['speed']
+        self.attack_damage = monster_info['damage']
+        self.ressistance = monster_info['resistance']
+        self.attack_radius = monster_info['attack_radius']
+        self.notice_radius = monster_info['notice_radius']
+        self.attack_type = monster_info['attack_type']
 
     def import_graphics(self, name):
         self.animations = {'idle': [], 'move': [], 'attack': []}
