@@ -19,18 +19,22 @@ class Level:
         # create map
         self.create_map()
 
+        # user interface
+        self.ui = UI()
+
+        # attack sprites
+        self.current_attack = None
+        self.attack_sprites = pygame.sprite.Group()
+        self.attackable_sprites = pygame.sprite.Group() 
+        
         # get enemys
         self.get_enemys('Boss')
         self.get_enemys('spirit')
         self.get_enemys('squid')
         self.get_enemys('bamboo')
 
-        # user interface
-        self.ui = UI()
-
-        # attack sprites
-        self.current_attack = None
-
+        
+        
     def create_map(self):
         for layer in self.tmx_data.layers:
             if layer.name in ("blocks"):
@@ -40,7 +44,7 @@ class Level:
 
         for obj in self.tmx_data.objects:
             pos = obj.x, obj.y
-            Tile(pos, [self.v_sprites, self.o_sprites], "object", obj.image)
+            Tile(pos, [self.v_sprites, self.o_sprites,], "object", obj.image)
 
         for layer in self.tmx_data.layers:
             if layer.name in ("Player"):
@@ -53,20 +57,37 @@ class Level:
             if layer.name in (f"{monster_name}"):
                 for x, y, surf in layer.tiles():
                     pos = (x*TILESIZE, y*TILESIZE)
-                    Enemy(monster_name, pos, [self.v_sprites], self.o_sprites)
+                    Enemy(monster_name, pos, [self.v_sprites, self.attackable_sprites], self.o_sprites, self.damage_player)
 
     def create_attack(self):
-        self.current_attack = Weapon(self.player, self.v_sprites)
+        self.current_attack = Weapon(self.player, [self.v_sprites, self.attack_sprites])
+
 
     def destroy_attack(self):
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
 
+    def player_attack_logic(self):
+        if self.attack_sprites:
+            for attack_sprite in self.attack_sprites:
+                collision_sprites = pygame.sprite.spritecollide(attack_sprite,self.attackable_sprites, False)    
+                if collision_sprites:
+                    for target_sprite in collision_sprites:
+                        target_sprite.get_damage(self.player, attack_sprite.sprite_type)       
+                        # target_sprite.kill()
+    
+    def damage_player(self, amount, attack_type):
+        if self.player.vulnerable:
+            self.player.health -= amount
+            self.player.vulnerable = False
+            self.player.hurt_time = pygame.time.get_ticks()
+
     def run(self):
         self.v_sprites.custom_draw(self.player)
         self.v_sprites.update()
         self.v_sprites.enemy_update(self.player)
+        self.player_attack_logic()
         self.ui.display(self.player)
         debug.debug(f" movement speed: {self.player.speed}")
 
