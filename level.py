@@ -55,7 +55,8 @@ class Level:
             if layer.name in (f"{monster_name}"):
                 for x, y, surf in layer.tiles():
                     pos = (x*TILESIZE, y*TILESIZE)
-                    Enemy(monster_name, pos, [self.v_sprites, self.attackable_sprites], self.o_sprites, self.damage_player)
+                    Enemy(monster_name,
+                          pos, [self.v_sprites, self.attackable_sprites], self.o_sprites, self.damage_player)
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.v_sprites, self.attack_sprites])
@@ -76,7 +77,7 @@ class Level:
                 collision_sprites = pygame.sprite.spritecollide(attack_sprite, self.attackable_sprites, False)    
                 if collision_sprites:
                     for target_sprite in collision_sprites:
-                        target_sprite.get_damage(self.player, attack_sprite.sprite_type)       
+                        target_sprite.get_damage(self.player, attack_sprite.sprite_type)
                         # target_sprite.kill()
 
     def damage_player(self, amount, attack_type):
@@ -118,6 +119,7 @@ class YSortCameraGroup(pygame.sprite.Group):
             self.display_surf.blit(sprite.image, offset_pos)
 
     def enemy_update(self, player):
-        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy']
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type')
+                         and sprite.sprite_type == 'enemy']
         for enemy in enemy_sprites:
             enemy.enemy_update(player)
