@@ -27,6 +27,7 @@ class Menu:
         if self.start_rect.collidepoint(mouse_pos) and m_buttons[0]:
             self.close_menu = True
         if self.close_menu:
+            self.display_surf.fill('black')
             self.level.run()
 
     def draw_options(self):
