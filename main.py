@@ -2,6 +2,7 @@ import pygame
 import sys
 from settings import WIDTH, HEIGTH, FPS
 from menu import Menu
+from level import Level
 
 
 class Game:
@@ -11,6 +12,7 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH, HEIGTH), pygame.FULLSCREEN)
         pygame.display.set_caption("RogueLike by theboys")
         self.clock = pygame.time.Clock()
+        self.level = Level()
         self.menu = Menu()
 
     def run(self):

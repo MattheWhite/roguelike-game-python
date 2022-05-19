@@ -22,23 +22,34 @@ class Menu:
         m_buttons = pygame.mouse.get_pressed()
         mouse_pos = pygame.mouse.get_pos()
         if self.exit_rect.collidepoint(mouse_pos) and m_buttons[0]:
+            print('you suck')
             pygame.quit()
             sys.exit()
         if self.start_rect.collidepoint(mouse_pos) and m_buttons[0]:
             self.close_menu = True
         if self.close_menu:
+            self.exit_rect.x = 4000
             self.display_surf.fill('black')
             self.level.run()
 
     def draw_options(self):
+        mouse_pos = pygame.mouse.get_pos()
+
         self.display_surf.blit(self.background, self.background_rect)
         pygame.draw.rect(self.display_surf, 'white', self.exit_rect.inflate(20, 20))
-        pygame.draw.rect(self.display_surf, 'black', self.exit_rect.inflate(20, 20), 5)
         self.display_surf.blit(self.exit_surf, self.exit_rect)
         pygame.draw.rect(self.display_surf, 'white', self.start_rect.inflate(20, 20))
-        pygame.draw.rect(self.display_surf, 'black', self.start_rect.inflate(20, 20), 5)
         self.display_surf.blit(self.start_surf, self.start_rect)
+        if self.exit_rect.collidepoint(mouse_pos):
+            pygame.draw.rect(self.display_surf, 'gold', self.exit_rect.inflate(20, 20), 5)
+        else:
+            pygame.draw.rect(self.display_surf, 'black', self.exit_rect.inflate(20, 20), 5)
+        if self.start_rect.collidepoint(mouse_pos):
+            pygame.draw.rect(self.display_surf, 'gold', self.start_rect.inflate(20, 20), 5)
+        else:
+            pygame.draw.rect(self.display_surf, 'black', self.start_rect.inflate(20, 20), 5)
 
     def run(self):
-        self.draw_options()
         self.choose_options()
+        if not self.close_menu:
+            self.draw_options()

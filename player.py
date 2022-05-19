@@ -5,10 +5,12 @@ from entities import Entity
 import sys
 
 
+
 class Player(Entity):
     def __init__(self, pos, groups, o_sprites, create_attack, destroy_attack, create_magic) -> None:
         super().__init__(groups)
         self.image = pygame.image.load("graph/player/player.png").convert_alpha()
+        self.display_surf = pygame.display.get_surface()
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -20)
 
@@ -18,7 +20,7 @@ class Player(Entity):
         self.cooldown = 400
         self.attack_time = 0
         self.o_sprites = o_sprites
-        self.superspeed = 20
+        self.superspeed = 30
 
         # animation
         self.import_player_assets()
@@ -42,8 +44,10 @@ class Player(Entity):
         self.switch_duration_cooldown = 200
 
         # stats
-        self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 5}
-        self.health = self.stats['health'] * 0.5
+        self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 10}
+        self.max_stats = {'health': 300, 'energy': 140, 'attack': 20, 'magic': 10, 'speed': 10}
+        self.upgrade_cost = {'health': 100, 'energy': 100, 'attack': 100, 'magic': 100, 'speed': 100}
+        self.health = self.stats['health']
         self.energy = self.stats['energy']
         self.speed = self.stats['speed']
         self.exp = 10
@@ -197,9 +201,26 @@ class Player(Entity):
         weapon_damage = weapon_data[self.weapon]["damage"]
         return base_damage + weapon_damage
 
+    def get_full_magic_damage(self):
+        base_damage = self.stats['magic']
+        spell_damage = magic_data[self.magic]['strength']
+        return base_damage + spell_damage
+
+    def energy_recovery(self):
+        if self.energy <= self.stats["energy"]:
+            self.energy += 0.01 * self.stats["magic"]
+        else:
+            self.energy = self.stats["energy"]
+
+    def check_death(self):
+        if self.health <= 0:
+            self.kill()
+
     def update(self):
         self.input()
         self.cooldowns()
         self.get_status()
         self.animate()
         self.move(self.speed)
+        self.energy_recovery()
+        self.check_death()
