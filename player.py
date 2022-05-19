@@ -41,9 +41,9 @@ class Player(Entity):
         self.switch_duration_cooldown = 200
 
         # stats
-        self.stats = {'health': 100, 'stamina': 60, 'attack': 10, 'magic': 4, 'speed': 5}
+        self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 5}
         self.health = self.stats['health'] * 0.5
-        self.stamina = self.stats['stamina']
+        self.energy = self.stats['energy']
         self.speed = self.stats['speed']
         self.exp = 10
 
@@ -55,7 +55,6 @@ class Player(Entity):
     def input(self):
         keys = pygame.key.get_pressed()
         m_buttons = pygame.mouse.get_pressed()
-        mouse_pos = pygame.mouse.get_pos()
 
         # move
         if not self.attacking:
@@ -92,13 +91,7 @@ class Player(Entity):
                 cost = list(magic_data.values())[self.magic_index]['cost']
                 self.create_magic(style, strength, cost)
 
-            # range attack
-            for sprite in self.o_sprites:
-                if m_buttons[2] and sprite.rect.collidepoint(mouse_pos):
-                    self.attacking = True
-                    self.range_attacking = True
-                    self.attack_time = pygame.time.get_ticks()
-
+        # weapon switch
         if keys[pygame.K_q] and self.can_switch_weapon:
             self.can_switch_weapon = False
             self.weapon_switch_time = pygame.time.get_ticks()
@@ -108,15 +101,18 @@ class Player(Entity):
                 self.weapon_index = 0
             self.weapon = list(weapon_data.keys())[self.weapon_index]
 
+        # magic switch
         if keys[pygame.K_e] and self.can_switch_magic:
             self.can_switch_magic = False
             self.magic_switch_time = pygame.time.get_ticks()
+
             if self.magic_index < len(list(magic_data.keys())) - 1:
                 self.magic_index += 1
             else:
                 self.magic_index = 0
             self.magic = list(magic_data.keys())[self.magic_index]
 
+        # speed cheat
         if keys[pygame.K_r] and keys[pygame.K_u]:
             self.speed = self.superspeed
         if keys[pygame.K_LALT]:
