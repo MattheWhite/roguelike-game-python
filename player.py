@@ -2,6 +2,7 @@ import pygame
 from settings import weapon_data, magic_data
 from support import import_folder
 from entities import Entity
+import sys
 
 
 class Player(Entity):
@@ -117,6 +118,11 @@ class Player(Entity):
             self.speed = self.superspeed
         if keys[pygame.K_LALT]:
             self.speed = self.stats['speed']
+
+        # quit game
+        if keys[pygame.K_ESCAPE]:
+            pygame.quit()
+            sys.exit()
 
     def import_player_assets(self):
         caracter_path = "graph/player/"

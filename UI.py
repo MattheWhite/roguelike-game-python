@@ -13,6 +13,10 @@ class UI:
         self.health_bar_rect = pygame.Rect(10, 70, set.HEALTH_BAR_WIDTH, set.BAR_HEIGHT)
         self.energy_bar_rect = pygame.Rect(10, 140, set.HEALTH_BAR_WIDTH, set.BAR_HEIGHT)
 
+        # dynamic screen
+        self.width = self.display_surface.get_size()[0]
+        self.heigth = self.display_surface.get_size()[1]
+
         # convert weapon dictionary
         self.weapon_graphics = []
         for weapon in set.weapon_data.values():
@@ -59,8 +63,8 @@ class UI:
 
     def show_exp(self, exp):
         text_surf = self.info_font.render(f'exp : {int(exp)}', False, set.TEXT_COLOR)
-        x = self.display_surface.get_size()[0] - 200
-        y = self.display_surface.get_size()[1] - 50
+        x = self.width * 0.98
+        y = self.heigth * 0.98
         text_rect = text_surf.get_rect(bottomright=(x, y))
 
         pygame.draw.rect(self.display_surface, set.UI_BG_COLOR, text_rect.inflate(15, 15))
@@ -77,14 +81,14 @@ class UI:
         return bg_rect
 
     def weapon_overlay(self, weapon_index, has_switched):
-        bg_rect = self.selection_box(10, 800, has_switched)
+        bg_rect = self.selection_box(self.width * 0.015, self.heigth * 0.9, has_switched)
         weapon_surf = self.weapon_graphics[weapon_index]
         weapon_rect = weapon_surf.get_rect(center=bg_rect.center)
 
         self.display_surface.blit(weapon_surf, weapon_rect)
 
     def magic_overlay(self, magic_index, has_switched):
-        bg_rect = self.selection_box(90, 700, has_switched)
+        bg_rect = self.selection_box(self.width * 0.015 + 82, self.heigth * 0.9, has_switched)
         magic_surf = self.magic_graphics[magic_index]
         magic_rect = magic_surf.get_rect(center=bg_rect.center)
 

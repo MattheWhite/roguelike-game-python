@@ -8,7 +8,7 @@ class Game:
     def __init__(self) -> None:
 
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGTH))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGTH), pygame.FULLSCREEN)
         pygame.display.set_caption("RogueLike by theboys")
         self.clock = pygame.time.Clock()
         self.menu = Menu()

@@ -6,12 +6,14 @@ from level import Level
 class Menu:
     def __init__(self,) -> None:
         self.display_surf = pygame.display.get_surface()
+        self.width = self.display_surf.get_size()[0]
+        self.heigth = self.display_surf.get_size()[1]
         self.level = Level()
         self.font = pygame.font.Font("graph/font/game_font.ttf", 50)
         self.exit_surf = self.font.render("EXIT", False, 'black')
-        self.exit_rect = self.exit_surf.get_rect(center=(800, 500))
+        self.exit_rect = self.exit_surf.get_rect(center=(self.width * 0.5, self.heigth * 0.75))
         self.start_surf = self.font.render("START", False, 'black')
-        self.start_rect = self.start_surf.get_rect(center=(800, 300))
+        self.start_rect = self.start_surf.get_rect(center=(self.width * 0.5, self.heigth * 0.55))
         self.background = pygame.image.load('menu/ninja.png').convert_alpha()
         self.background_rect = self.background.get_rect(topleft=(0, 0))
         self.close_menu = False
