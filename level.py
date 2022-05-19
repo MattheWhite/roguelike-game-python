@@ -48,7 +48,9 @@ class Level:
             if layer.name in ("Player"):
                 for x, y, surf in layer.tiles():
                     pos = (x*TILESIZE, y*TILESIZE)
-                    self.player = Player(pos, [self.v_sprites], self.o_sprites, self.create_attack, self.destroy_attack)
+                    self.player = Player(pos,
+                                         [self.v_sprites], self.o_sprites,
+                                         self.create_attack, self.destroy_attack, self.create_magic)
 
     def get_enemys(self, monster_name):
         for layer in self.tmx_data.layers:
@@ -60,6 +62,11 @@ class Level:
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.v_sprites, self.attack_sprites])
+
+    def create_magic(self, style, strength, cost):
+        print(style)
+        print(strength)
+        print(cost)
 
     def destroy_attack(self):
         if self.current_attack:
