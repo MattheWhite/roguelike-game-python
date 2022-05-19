@@ -1,6 +1,8 @@
+from screeninfo import get_monitors
+
 # game setup
-WIDTH = 1600
-HEIGTH = 900
+WIDTH = get_monitors()[0].width
+HEIGTH = get_monitors()[0].height
 FPS = 60
 TILESIZE = 64
 
