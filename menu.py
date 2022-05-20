@@ -28,7 +28,7 @@ class Menu:
         if self.start_rect.collidepoint(mouse_pos) and m_buttons[0]:
             self.close_menu = True
         if self.close_menu:
-            self.exit_rect.x = 4000
+            self.exit_rect.x = 10000
             self.display_surf.fill('black')
             self.level.run()
 
