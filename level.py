@@ -21,7 +21,7 @@ class Level:
         self.game_paused = False
         self.toogle_time = 0
         self.can_toggle = True
-        self.toggle_duration_cooldown = 200 
+        self.toggle_duration_cooldown = 200
         self.v_sprites = YSortCameraGroup()
         self.o_sprites = pygame.sprite.Group()
         self.tmx_data = load_pygame("graph/level/map.tmx")
@@ -148,7 +148,7 @@ class Level:
                 self.can_toggle = False
                 self.toogle_time = pygame.time.get_ticks()
                 self.game_paused = not self.game_paused
-            
+
     def toogle_cooldown(self):
         current_time = pygame.time.get_ticks()
         if not self.can_toggle:

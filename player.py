@@ -5,7 +5,6 @@ from entities import Entity
 import sys
 
 
-
 class Player(Entity):
     def __init__(self, pos, groups, o_sprites, create_attack, destroy_attack, create_magic) -> None:
         super().__init__(groups)
