@@ -149,7 +149,7 @@ class Upgrade:
                     self.can_click = False
                     if player.stats['magic'] < player.max_stats['magic']:
                         player.exp -= player.upgrade_cost
-                        player.stats['magic'] += 0.5
+                        player.stats['magic'] += 1
                         player.upgrade_cost += 10
 
         if self.speed_rect.collidepoint(m_pos):
@@ -160,7 +160,7 @@ class Upgrade:
                     self.can_click = False
                     if player.stats['speed'] < player.max_stats['speed']:
                         player.exp -= player.upgrade_cost
-                        player.stats['speed'] += 5
+                        player.stats['speed'] += 1
                         player.upgrade_cost += 10
 
     def display(self):
