@@ -11,7 +11,7 @@ class Player(Entity):
         self.image = pygame.image.load("graph/player/player.png").convert_alpha()
         self.display_surf = pygame.display.get_surface()
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(0, -20)
+        self.hitbox = self.rect.inflate(-6, -20)
 
         # movement
         self.attacking = False
@@ -19,7 +19,7 @@ class Player(Entity):
         self.cooldown = 400
         self.attack_time = 0
         self.o_sprites = o_sprites
-        self.superspeed = 30
+        self.superstats = {'health': 500, 'energy': 200, 'attack': 50, 'magic': 15, 'speed': 30}
 
         # animation
         self.import_player_assets()
@@ -43,12 +43,12 @@ class Player(Entity):
         self.switch_duration_cooldown = 200
 
         # stats
-        self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 10}
-        self.max_stats = {'health': 300, 'energy': 140, 'attack': 20, 'magic': 10, 'speed': 10}
+        self.normalstats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 10}
+        self.stats = self.normalstats
+        self.max_stats = {'health': 300, 'energy': 140, 'attack': 20, 'magic': 10, 'speed': 20}
         self.upgrade_cost = 100
         self.health = self.stats['health']
         self.energy = self.stats['energy']
-        self.speed = self.stats['speed']
         self.exp = 500
 
         # damage timer
@@ -117,10 +117,14 @@ class Player(Entity):
             self.magic = list(magic_data.keys())[self.magic_index]
 
         # speed cheat
-        if keys[pygame.K_r] and keys[pygame.K_u]:
-            self.speed = self.superspeed
+        if keys[pygame.K_p] and keys[pygame.K_o]:
+            self.stats = self.superstats
+            self.energy = self.superstats['energy']
+            self.health = self.superstats['health']
         if keys[pygame.K_LALT]:
-            self.speed = self.stats['speed']
+            self.stats = self.normalstats
+            self.energy = self.stats['energy']
+            self.health = self.stats['health']
 
         # quit game
         if keys[pygame.K_ESCAPE]:
@@ -220,6 +224,6 @@ class Player(Entity):
         self.cooldowns()
         self.get_status()
         self.animate()
-        self.move(self.speed)
+        self.move(self.stats['speed'])
         self.energy_recovery()
         self.check_death()

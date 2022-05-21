@@ -144,7 +144,7 @@ class Level:
     def toggle_menu(self):
         keys = pygame.key.get_pressed()
         if self.can_toggle:
-            if keys[pygame.K_p]:
+            if keys[pygame.K_u]:
                 self.can_toggle = False
                 self.toogle_time = pygame.time.get_ticks()
                 self.game_paused = not self.game_paused
@@ -167,7 +167,7 @@ class Level:
             self.v_sprites.update()
             self.v_sprites.enemy_update(self.player)
             self.player_attack_logic()
-            debug.debug(f" movement speed: {self.player.speed}")
+            debug.debug(f" player stats: {self.player.stats}")
 
 
 class YSortCameraGroup(pygame.sprite.Group):
