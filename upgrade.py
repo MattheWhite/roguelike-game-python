@@ -114,8 +114,10 @@ class Upgrade:
                 if m_button[0] and self.can_click:
                     self.selection_time = pygame.time.get_ticks()
                     self.can_click = False
-                    player.exp -= player.upgrade_cost
-                    player.stats['attack'] += 1
+                    if player.stats['attack'] < player.max_stats['attack']:
+                        player.exp -= player.upgrade_cost
+                        player.stats['attack'] += 1
+                        player.upgrade_cost += 10
 
         if self.health_rect.collidepoint(m_pos):
             pygame.draw.rect(self.display_surf, 'gold', self.health_rect.inflate(20, 20), 5)
@@ -123,8 +125,10 @@ class Upgrade:
                 if m_button[0] and self.can_click:
                     self.selection_time = pygame.time.get_ticks()
                     self.can_click = False
-                    player.exp -= player.upgrade_cost
-                    player.stats['health'] += 10
+                    if player.stats['health'] < player.max_stats['health']:
+                        player.exp -= player.upgrade_cost
+                        player.stats['health'] += 10
+                        player.upgrade_cost += 10
 
         if self.energy_rect.collidepoint(m_pos):
             pygame.draw.rect(self.display_surf, 'gold', self.energy_rect.inflate(20, 20), 5)
@@ -132,8 +136,10 @@ class Upgrade:
                 if m_button[0] and self.can_click:
                     self.selection_time = pygame.time.get_ticks()
                     self.can_click = False
-                    player.exp -= player.upgrade_cost
-                    player.stats['energy'] += 10
+                    if player.stats['energy'] < player.max_stats['energy']:
+                        player.exp -= player.upgrade_cost
+                        player.stats['energy'] += 10
+                        player.upgrade_cost += 10
 
         if self.magic_rect.collidepoint(m_pos):
             pygame.draw.rect(self.display_surf, 'gold', self.magic_rect.inflate(20, 20), 5)
@@ -141,8 +147,10 @@ class Upgrade:
                 if m_button[0] and self.can_click:
                     self.selection_time = pygame.time.get_ticks()
                     self.can_click = False
-                    player.exp -= player.upgrade_cost
-                    player.stats['magic'] += 0.5
+                    if player.stats['magic'] < player.max_stats['magic']:
+                        player.exp -= player.upgrade_cost
+                        player.stats['magic'] += 0.5
+                        player.upgrade_cost += 10
 
         if self.speed_rect.collidepoint(m_pos):
             pygame.draw.rect(self.display_surf, 'gold', self.speed_rect.inflate(20, 20), 5)
@@ -150,12 +158,14 @@ class Upgrade:
                 if m_button[0] and self.can_click:
                     self.selection_time = pygame.time.get_ticks()
                     self.can_click = False
-                    player.exp -= player.upgrade_cost
-                    player.stats['speed'] *= 1.05
+                    if player.stats['speed'] < player.max_stats['speed']:
+                        player.exp -= player.upgrade_cost
+                        player.stats['speed'] += 5
+                        player.upgrade_cost += 10
 
     def display(self):
         self.item_creation(self.player)
         self.selection_cooldown()
         self.draw_options()
         self.chosse_upgrade(self.player)
-        debug.debug(self.player.stats)
+        debug.debug(self.player.upgrade_cost)
