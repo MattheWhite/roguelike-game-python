@@ -56,6 +56,9 @@ class Player(Entity):
         self.hurt_time = 0
         self.invulnerability_duartion = 500
 
+        self.weapon_sound = pygame.mixer.Sound('audio/sword.wav')
+        self.weapon_sound.set_volume(0.3)
+
     def input(self):
         keys = pygame.key.get_pressed()
         m_buttons = pygame.mouse.get_pressed()
@@ -85,6 +88,7 @@ class Player(Entity):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
+                self.weapon_sound.play()
 
             # magic attack
             if m_buttons[2]:

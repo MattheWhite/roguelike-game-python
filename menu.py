@@ -22,7 +22,6 @@ class Menu:
         m_buttons = pygame.mouse.get_pressed()
         mouse_pos = pygame.mouse.get_pos()
         if self.exit_rect.collidepoint(mouse_pos) and m_buttons[0]:
-            print('you suck')
             pygame.quit()
             sys.exit()
         if self.start_rect.collidepoint(mouse_pos) and m_buttons[0]:
