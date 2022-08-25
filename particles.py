@@ -5,26 +5,25 @@ from support import import_folder
 class AnimationPlayer:
     def __init__(self):
         self.frames = {
-                    # magic
-                    'flame': import_folder('graph/particles/flame/frames'),
-                    'aura': import_folder('graph/particles/aura'),
-                    'heal': import_folder('graph/particles/heal/frames'),
+            # magic
+            'flame': import_folder('graph/particles/flame/frames'),
+            'aura': import_folder('graph/particles/aura'),
+            'heal': import_folder('graph/particles/heal/frames'),
 
-                    # attacks
-                    'claw': import_folder('graph/particles/claw'),
-                    'slash': import_folder('graph/particles/slash'),
-                    'sparkle': import_folder('graph/particles/sparkle'),
-                    'leaf_attack': import_folder('graph/particles/leaf_attack'),
-                    'thunder': import_folder('graph/particles/thunder'),
+            # attacks
+            'claw': import_folder('graph/particles/claw'),
+            'slash': import_folder('graph/particles/slash'),
+            'sparkle': import_folder('graph/particles/sparkle'),
+            'leaf_attack': import_folder('graph/particles/leaf_attack'),
+            'thunder': import_folder('graph/particles/thunder'),
 
-                    # monster deaths
-                    'squid': import_folder('graph/particles/smoke_orange'),
-                    'Boss': import_folder('graph/particles/raccoon'),
-                    'spirit': import_folder('graph/particles/nova'),
-                    'bamboo': import_folder('graph/particles/bamboo'),
+            # monster deaths
+            'squid': import_folder('graph/particles/smoke_orange'),
+            'Boss': import_folder('graph/particles/raccoon'),
+            'spirit': import_folder('graph/particles/nova'),
+            'bamboo': import_folder('graph/particles/bamboo'),
 
-
-                   }
+        }
 
     def create_particles(self, animation_type, pos, groups):
         animation_frames = self.frames[animation_type]

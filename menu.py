@@ -15,7 +15,7 @@ class Menu:
         self.start_surf = self.font.render("START", False, 'black')
         self.start_rect = self.start_surf.get_rect(center=(self.width * 0.5, self.heigth * 0.55))
         self.background = pygame.image.load('menu/ninja.png').convert_alpha()
-        self.background_rect = self.background.get_rect(topleft=(0, 0))
+        self.background_rect = self.background.get_rect(center=(self.width*0.5, self.heigth*0.5))
         self.close_menu = False
 
     def choose_options(self):
