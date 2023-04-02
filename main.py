@@ -1,6 +1,7 @@
 import pygame
 import sys
 from settings import WIDTH, HEIGTH, FPS
+from menu import Menu
 from level import Level
 
 
@@ -8,10 +9,16 @@ class Game:
     def __init__(self) -> None:
 
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGTH))
-        pygame.display.set_caption("test game2")
+        self.screen = pygame.display.set_mode((WIDTH, HEIGTH), pygame.FULLSCREEN)
+        pygame.display.set_caption("RogueLike by theboys")
         self.clock = pygame.time.Clock()
         self.level = Level()
+        self.menu = Menu()
+
+        # sound
+        main_sound = pygame.mixer.Sound('audio/main.ogg')
+        main_sound.set_volume(0.5)
+        main_sound.play(loops=-1)
 
     def run(self):
         game_is_active = True
@@ -21,7 +28,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
             self.screen.fill("black")
-            self.level.run()
+            self.menu.run()
             pygame.display.update()
             self.clock.tick(FPS)
 
@@ -29,4 +36,3 @@ class Game:
 if __name__ == '__main__':
     game = Game()
     game.run()
-
