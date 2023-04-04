@@ -8,7 +8,7 @@ from player import Player
 import debug
 from pytmx.util_pygame import load_pygame
 from weapon import Weapon
-from UI import UI
+from ui import UI
 from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
