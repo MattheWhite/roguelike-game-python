@@ -14,7 +14,7 @@
 
   <h2 align="center">Roguelike Game with Pygame</h2>
 
-  <p align="center" style="display: none;">
+  <!-- <p align="center" style="display: none;">
     An awesome README template to jumpstart your projects!
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
@@ -25,7 +25,7 @@
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
+  </p> -->
 </div>
 
 [![Pygame][Pygame.com]][Pygame-url]
@@ -231,7 +231,7 @@ Project Link: [https://github.com/MattheWhite/roguelike-game-python](https://git
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/MattheWhite/roguelike-game-python.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[contributors-url]: https://github.com/MattheWhite/roguelike-game-python/graphs/contributors
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=349
 [linkedin-url]: https://www.linkedin.com/in/matyas-feher/
 [github-shield]: https://img.shields.io/badge/-GitHub-black.svg?style=for-the-badge&logo=github&colorB=947
