@@ -206,7 +206,7 @@ Here you can find the information about the control of the game.
 <kbd>ALT</kbd>  ->  Nack to normal
 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
