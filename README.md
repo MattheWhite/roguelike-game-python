@@ -201,9 +201,9 @@ Here you can find the information about the control of the game.
 
     - a little extra if you are in a too hot situation
 
-<kbd>O</kbd> + <kbd>P</kbd> ->  OP / Super mode (more healt, more speed, more damage)
+<kbd>O</kbd> + <kbd>P</kbd> ->  OP / Super mode (more health, more speed, more damage)
 
-<kbd>ALT</kbd>  ->  Nack to normal
+<kbd>ALT</kbd>  ->  Back to normal
 
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
